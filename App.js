@@ -1,71 +1,40 @@
-//import { StatusBar } from 'expo-status-bar';
-//import { StyleSheet, Text, View } from 'react-native';
-
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <Text>Open me up to start working on your app!</Text>
-//       <StatusBar style="auto" />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
-
-
-import React, { useState } from 'react';
-import { View, TextInput, Button, Text } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import IngredientsScreen from './src/screens/IngredientsScreen';
+import MeatScreen from './src/screens/MeatScreen';
+import ExtraIngredientsScreen from './src/screens/ExtraIngredientsScreen';
+import ResponseScreen from './src/screens/ResponseScreen';
 import Constants from 'expo-constants';
 
 
-// const { Configuration, OpenAIApi } = require("openai");
-// const configuration = new Configuration({
-//   apiKey: "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",
-// });
+const Stack = createStackNavigator();
 
 export default function App() {
-  const [ingredients, setIngredients] = useState('');
-  const [output, setOutput] = useState('');
-
-  async function handleSubmit() {
-    try{
-    const response = await fetch('https://api.openai.com/v1/engines/text-davinci-003/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer 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'
-      },
-      body: JSON.stringify({
-        prompt: 'write a Recipe using only the following Ingredients : ' + ingredients,
-        max_tokens: 500
-      })
-    });
-
-    const data = await response.json();
-    setOutput(data.choices[0].text);
-    }
-    catch(e){
-      setOutput("error"+e);
-    }
-  }
-
   return (
-    <View style={{ padding: 24 }}>
-      <TextInput
-        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-        onChangeText={text => setIngredients(text)}
-        value={ingredients}
-        placeholder="Ingredients"
-      />
-      <Button title="Submit" onPress={handleSubmit} />
-      <Text>{output}</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Ingredients">
+        <Stack.Screen
+          name="Ingredients"
+          component={IngredientsScreen}
+          options={{ title: 'Ingredients' }}
+        />
+        <Stack.Screen
+          name="Meat"
+          component={MeatScreen}
+          options={{ title: 'Meats' }}
+        />
+        <Stack.Screen
+          name="ExtraIngredients"
+          component={ExtraIngredientsScreen}
+          options={{ title: 'Extra Ingredients' }}
+        />
+        <Stack.Screen
+          name="Response"
+          component={ResponseScreen}
+          options={{ title: 'Response' }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
