@@ -17,22 +17,22 @@ export default function App() {
         <Stack.Screen
           name="Ingredients"
           component={IngredientsScreen}
-          options={{ title: 'Ingredients' }}
+          // options={{ title: 'Ingredients' }}
         />
         <Stack.Screen
           name="Meat"
           component={MeatScreen}
-          options={{ title: 'Meats' }}
+          // options={{ title: 'Meats' }}
         />
         <Stack.Screen
           name="ExtraIngredients"
           component={ExtraIngredientsScreen}
-          options={{ title: 'Extra Ingredients' }}
+          // options={{ title: 'Extra Ingredients' }}
         />
         <Stack.Screen
           name="Response"
           component={ResponseScreen}
-          options={{ title: 'Response' }}
+          // options={{ title: 'Response' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
